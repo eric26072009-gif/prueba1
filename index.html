@@ -7,8 +7,8 @@
 
 <style>
 body{
-    margin:0;
     font-family:Arial,sans-serif;
+    margin:0;
     background:#f5f5f5;
     color:#333;
     transition:.3s;
@@ -19,56 +19,36 @@ body{
     color:white;
 }
 
-.dark .card{
-    background:#222;
-}
-
 header{
-    background:#6b3f1d;
+    background:#8b5a2b;
     color:white;
     text-align:center;
-    padding:40px;
-}
-
-.hero img{
-    width:250px;
-    border-radius:20px;
-}
-
-section{
-    max-width:1000px;
-    margin:auto;
-    padding:20px;
+    padding:30px;
 }
 
 .card{
     background:white;
+    max-width:900px;
+    margin:20px auto;
     padding:20px;
-    margin:20px 0;
     border-radius:15px;
-    box-shadow:0 0 10px rgba(0,0,0,.15);
+}
+
+.dark .card{
+    background:#222;
 }
 
 button{
-    padding:10px 15px;
+    padding:10px;
     margin:5px;
-    border:none;
-    border-radius:8px;
     cursor:pointer;
 }
 
-.cookie-banner{
+#banner{
     position:fixed;
     bottom:0;
     width:100%;
     background:#222;
-    color:white;
-    padding:15px;
-    text-align:center;
-}
-
-footer{
-    background:#6b3f1d;
     color:white;
     text-align:center;
     padding:15px;
@@ -79,22 +59,17 @@ footer{
 <body>
 
 <header>
-
 <h1 id="titulo">🍪 CookieTech</h1>
 <p id="subtitulo">Todo sobre las cookies tecnológicas</p>
 
-<div class="hero">
 <img
-src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e"
-alt="Cookies">
-</div>
-
+src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500"
+width="250">
 </header>
 
-<section>
-
 <div class="card">
-<h2>🌍 Idioma</h2>
+
+<h2 id="idiomaTitulo">Idioma</h2>
 
 <button onclick="cambiarIdioma('es')">🇪🇸 Español</button>
 <button onclick="cambiarIdioma('ca')">🇦🇩 Català</button>
@@ -103,39 +78,33 @@ alt="Cookies">
 </div>
 
 <div class="card">
-<h2>🎨 Apariencia</h2>
 
-<button onclick="activarOscuro()">
-🌙 Modo oscuro
-</button>
+<h2 id="aparienciaTitulo">Apariencia</h2>
 
-<button onclick="activarClaro()">
-☀️ Modo claro
-</button>
+<button onclick="modoOscuro()">🌙 Oscuro</button>
+<button onclick="modoClaro()">☀️ Claro</button>
 
 </div>
 
 <div class="card">
-<h2>🍪 ¿Qué son las cookies?</h2>
 
-<p>
-Las cookies son pequeños archivos que los sitios web guardan
-en tu navegador para recordar información.
+<h2 id="cookiesTitulo">¿Qué son las cookies?</h2>
+
+<p id="cookiesTexto">
+Las cookies son pequeños archivos que guardan información en tu navegador.
 </p>
 
 </div>
 
 <div class="card">
 
-<h2>📋 Cookies guardadas</h2>
+<h2>Cookies actuales</h2>
 
 <p id="estado"></p>
 
 </div>
 
-</section>
-
-<div id="banner" class="cookie-banner">
+<div id="banner">
 
 🍪 Esta web utiliza cookies.
 
@@ -149,112 +118,154 @@ Rechazar
 
 </div>
 
-<footer>
-CookieTech © 2026
-</footer>
-
 <script>
 
-const idiomas = {
+const textos = {
 
 es:{
 titulo:"🍪 CookieTech",
-subtitulo:"Todo sobre las cookies tecnológicas"
+subtitulo:"Todo sobre las cookies tecnológicas",
+idioma:"Idioma",
+apariencia:"Apariencia",
+cookies:"¿Qué son las cookies?",
+texto:"Las cookies son pequeños archivos que guardan información en tu navegador."
 },
 
 ca:{
 titulo:"🍪 CookieTech",
-subtitulo:"Tot sobre les cookies tecnològiques"
+subtitulo:"Tot sobre les cookies tecnològiques",
+idioma:"Idioma",
+apariencia:"Aparença",
+cookies:"Què són les cookies?",
+texto:"Les cookies són petits fitxers que guarden informació al navegador."
 },
 
 en:{
 titulo:"🍪 CookieTech",
-subtitulo:"Everything about web cookies"
+subtitulo:"Everything about web cookies",
+idioma:"Language",
+apariencia:"Appearance",
+cookies:"What are cookies?",
+texto:"Cookies are small files that store information in your browser."
 }
 
 };
 
+function getCookie(nombre){
+
+const cookies=document.cookie.split(";");
+
+for(let c of cookies){
+
+let [key,value]=c.trim().split("=");
+
+if(key===nombre){
+return value;
+}
+
+}
+
+return null;
+}
+
 function aceptarCookies(){
 
-document.cookie =
+document.cookie=
 "consentimiento=aceptado; max-age=31536000; path=/";
 
 document.getElementById("banner").style.display="none";
 
-mostrarEstado();
+actualizarEstado();
 }
 
 function rechazarCookies(){
 
-document.cookie =
+document.cookie=
 "consentimiento=rechazado; max-age=31536000; path=/";
+
+document.cookie=
+"tema=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+
+document.cookie=
+"idioma=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 
 document.getElementById("banner").style.display="none";
 
-mostrarEstado();
+actualizarEstado();
 }
 
-function activarOscuro(){
+function modoOscuro(){
 
 document.body.classList.add("dark");
 
-document.cookie =
+if(getCookie("consentimiento")==="aceptado"){
+
+document.cookie=
 "tema=oscuro; max-age=31536000; path=/";
 
-mostrarEstado();
 }
 
-function activarClaro(){
+actualizarEstado();
+}
+
+function modoClaro(){
 
 document.body.classList.remove("dark");
 
-document.cookie =
+if(getCookie("consentimiento")==="aceptado"){
+
+document.cookie=
 "tema=claro; max-age=31536000; path=/";
 
-mostrarEstado();
 }
 
-function cambiarIdioma(idioma){
-
-document.cookie =
-"idioma="+idioma+"; max-age=31536000; path=/";
-
-document.getElementById("titulo").textContent =
-idiomas[idioma].titulo;
-
-document.getElementById("subtitulo").textContent =
-idiomas[idioma].subtitulo;
-
-mostrarEstado();
+actualizarEstado();
 }
 
-function mostrarEstado(){
+function cambiarIdioma(id){
 
-document.getElementById("estado").textContent =
+const t=textos[id];
+
+document.getElementById("titulo").textContent=t.titulo;
+document.getElementById("subtitulo").textContent=t.subtitulo;
+document.getElementById("idiomaTitulo").textContent=t.idioma;
+document.getElementById("aparienciaTitulo").textContent=t.apariencia;
+document.getElementById("cookiesTitulo").textContent=t.cookies;
+document.getElementById("cookiesTexto").textContent=t.texto;
+
+if(getCookie("consentimiento")==="aceptado"){
+
+document.cookie=
+"idioma="+id+"; max-age=31536000; path=/";
+
+}
+
+actualizarEstado();
+}
+
+function actualizarEstado(){
+
+document.getElementById("estado").textContent=
 document.cookie || "No hay cookies";
 }
 
-window.onload = function(){
+window.onload=function(){
 
-if(document.cookie.includes("consentimiento=")){
+if(getCookie("consentimiento")){
+
 document.getElementById("banner").style.display="none";
 }
 
-if(document.cookie.includes("tema=oscuro")){
+if(getCookie("tema")==="oscuro"){
 document.body.classList.add("dark");
 }
 
-if(document.cookie.includes("idioma=ca")){
-cambiarIdioma("ca");
-}
-else if(document.cookie.includes("idioma=en")){
-cambiarIdioma("en");
-}
-else{
-cambiarIdioma("es");
-}
+const idiomaGuardado=getCookie("idioma") || "es";
 
-mostrarEstado();
+cambiarIdioma(idiomaGuardado);
+
+actualizarEstado();
+
 };
 
 </script>
