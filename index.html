@@ -2,269 +2,159 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CookieTech</title>
 
 <style>
-body{
-    font-family:Arial,sans-serif;
-    margin:0;
-    background:#f5f5f5;
-    color:#333;
-    transition:.3s;
+body{font-family:Arial;margin:0;background:#f4f4f4;color:#333}
+.dark{background:#111;color:white}
+header{background:#8b5a2b;color:white;padding:20px;text-align:center}
+.card{background:white;margin:20px;padding:20px;border-radius:10px}
+.dark .card{background:#222}
+.banner{
+position:fixed;left:0;width:100%;
+padding:15px;text-align:center;color:white;
 }
-
-.dark{
-    background:#121212;
-    color:white;
-}
-
-header{
-    background:#8b5a2b;
-    color:white;
-    text-align:center;
-    padding:30px;
-}
-
-.card{
-    background:white;
-    max-width:900px;
-    margin:20px auto;
-    padding:20px;
-    border-radius:15px;
-}
-
-.dark .card{
-    background:#222;
-}
-
-button{
-    padding:10px;
-    margin:5px;
-    cursor:pointer;
-}
-
-#banner{
-    position:fixed;
-    bottom:0;
-    width:100%;
-    background:#222;
-    color:white;
-    text-align:center;
-    padding:15px;
-}
+#cookieBanner{bottom:0;background:#222;}
+#locationBanner{bottom:60px;background:#0066cc;}
+button{margin:5px;padding:8px 12px}
 </style>
 </head>
-
 <body>
 
 <header>
-<h1 id="titulo">🍪 CookieTech</h1>
-<p id="subtitulo">Todo sobre las cookies tecnológicas</p>
-
-<img
-src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500"
-width="250">
+<h1 id="title">🍪 CookieTech</h1>
+<p id="subtitle">Todo sobre las cookies tecnológicas</p>
 </header>
 
 <div class="card">
-
-<h2 id="idiomaTitulo">Idioma</h2>
-
-<button onclick="cambiarIdioma('es')">🇪🇸 Español</button>
-<button onclick="cambiarIdioma('ca')">🇦🇩 Català</button>
-<button onclick="cambiarIdioma('en')">🇬🇧 English</button>
-
+<h2>🌍 Idioma</h2>
+<button onclick="setLang('es')">ES</button>
+<button onclick="setLang('ca')">CAT</button>
+<button onclick="setLang('en')">EN</button>
 </div>
 
 <div class="card">
-
-<h2 id="aparienciaTitulo">Apariencia</h2>
-
-<button onclick="modoOscuro()">🌙 Oscuro</button>
-<button onclick="modoClaro()">☀️ Claro</button>
-
+<h2>🌙 Apariencia</h2>
+<button onclick="darkMode()">Oscuro</button>
+<button onclick="lightMode()">Claro</button>
 </div>
 
 <div class="card">
-
-<h2 id="cookiesTitulo">¿Qué son las cookies?</h2>
-
-<p id="cookiesTexto">
-Las cookies son pequeños archivos que guardan información en tu navegador.
-</p>
-
+<h2>📍 Ubicación</h2>
+<p id="location">Sin permiso</p>
 </div>
 
 <div class="card">
-
-<h2>Cookies actuales</h2>
-
-<p id="estado"></p>
-
+<h2>🍪 Cookies</h2>
+<p id="cookies"></p>
 </div>
 
-<div id="banner">
+<div id="cookieBanner" class="banner">
+🍪 Esta web utiliza cookies
+<button onclick="acceptCookies()">Aceptar</button>
+<button onclick="rejectCookies()">Rechazar</button>
+</div>
 
-🍪 Esta web utiliza cookies.
-
-<button onclick="aceptarCookies()">
-Aceptar
-</button>
-
-<button onclick="rechazarCookies()">
-Rechazar
-</button>
-
+<div id="locationBanner" class="banner" style="display:none">
+📍 Permitir ubicación
+<button onclick="acceptLocation()">Permitir</button>
+<button onclick="rejectLocation()">Rechazar</button>
 </div>
 
 <script>
 
-const textos = {
-
-es:{
-titulo:"🍪 CookieTech",
-subtitulo:"Todo sobre las cookies tecnológicas",
-idioma:"Idioma",
-apariencia:"Apariencia",
-cookies:"¿Qué son las cookies?",
-texto:"Las cookies son pequeños archivos que guardan información en tu navegador."
-},
-
-ca:{
-titulo:"🍪 CookieTech",
-subtitulo:"Tot sobre les cookies tecnològiques",
-idioma:"Idioma",
-apariencia:"Aparença",
-cookies:"Què són les cookies?",
-texto:"Les cookies són petits fitxers que guarden informació al navegador."
-},
-
-en:{
-titulo:"🍪 CookieTech",
-subtitulo:"Everything about web cookies",
-idioma:"Language",
-apariencia:"Appearance",
-cookies:"What are cookies?",
-texto:"Cookies are small files that store information in your browser."
-}
-
+const txt={
+es:["🍪 CookieTech","Todo sobre las cookies tecnológicas"],
+ca:["🍪 CookieTech","Tot sobre les cookies tecnològiques"],
+en:["🍪 CookieTech","Everything about web cookies"]
 };
 
-function getCookie(nombre){
-
-const cookies=document.cookie.split(";");
-
-for(let c of cookies){
-
-let [key,value]=c.trim().split("=");
-
-if(key===nombre){
-return value;
+function setCookie(n,v){
+document.cookie=n+"="+v+";max-age=31536000;path=/";
 }
 
+function getCookie(n){
+let m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)'));
+return m?m[2]:null;
 }
 
-return null;
+function deleteCookie(n){
+document.cookie=n+"=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
 }
 
-function aceptarCookies(){
-
-document.cookie=
-"consentimiento=aceptado; max-age=31536000; path=/";
-
-document.getElementById("banner").style.display="none";
-
-actualizarEstado();
+function refreshCookies(){
+document.getElementById("cookies").textContent=document.cookie;
 }
 
-function rechazarCookies(){
-
-document.cookie=
-"consentimiento=rechazado; max-age=31536000; path=/";
-
-document.cookie=
-"tema=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-
-document.cookie=
-"idioma=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-
-document.getElementById("banner").style.display="none";
-
-actualizarEstado();
+function acceptCookies(){
+setCookie("consent","yes");
+document.getElementById("cookieBanner").style.display="none";
+document.getElementById("locationBanner").style.display="block";
+refreshCookies();
 }
 
-function modoOscuro(){
+function rejectCookies(){
+setCookie("consent","no");
+deleteCookie("theme");
+deleteCookie("lang");
+document.getElementById("cookieBanner").style.display="none";
+refreshCookies();
+}
 
+function darkMode(){
 document.body.classList.add("dark");
-
-if(getCookie("consentimiento")==="aceptado"){
-
-document.cookie=
-"tema=oscuro; max-age=31536000; path=/";
-
+if(getCookie("consent")=="yes") setCookie("theme","dark");
 }
 
-actualizarEstado();
-}
-
-function modoClaro(){
-
+function lightMode(){
 document.body.classList.remove("dark");
+if(getCookie("consent")=="yes") setCookie("theme","light");
+}
 
-if(getCookie("consentimiento")==="aceptado"){
+function setLang(l){
+document.getElementById("title").textContent=txt[l][0];
+document.getElementById("subtitle").textContent=txt[l][1];
 
-document.cookie=
-"tema=claro; max-age=31536000; path=/";
+if(getCookie("consent")=="yes")
+setCookie("lang",l);
+}
+
+function acceptLocation(){
+
+setCookie("location","yes");
+document.getElementById("locationBanner").style.display="none";
+
+navigator.geolocation.getCurrentPosition(function(pos){
+
+document.getElementById("location").innerHTML=
+"Latitud: "+pos.coords.latitude.toFixed(5)+
+"<br>Longitud: "+pos.coords.longitude.toFixed(5);
+
+});
 
 }
 
-actualizarEstado();
-}
-
-function cambiarIdioma(id){
-
-const t=textos[id];
-
-document.getElementById("titulo").textContent=t.titulo;
-document.getElementById("subtitulo").textContent=t.subtitulo;
-document.getElementById("idiomaTitulo").textContent=t.idioma;
-document.getElementById("aparienciaTitulo").textContent=t.apariencia;
-document.getElementById("cookiesTitulo").textContent=t.cookies;
-document.getElementById("cookiesTexto").textContent=t.texto;
-
-if(getCookie("consentimiento")==="aceptado"){
-
-document.cookie=
-"idioma="+id+"; max-age=31536000; path=/";
-
-}
-
-actualizarEstado();
-}
-
-function actualizarEstado(){
-
-document.getElementById("estado").textContent=
-document.cookie || "No hay cookies";
+function rejectLocation(){
+setCookie("location","no");
+document.getElementById("locationBanner").style.display="none";
 }
 
 window.onload=function(){
 
-if(getCookie("consentimiento")){
-
-document.getElementById("banner").style.display="none";
+if(getCookie("consent")){
+document.getElementById("cookieBanner").style.display="none";
 }
 
-if(getCookie("tema")==="oscuro"){
+if(getCookie("theme")=="dark"){
 document.body.classList.add("dark");
 }
 
-const idiomaGuardado=getCookie("idioma") || "es";
+if(getCookie("lang")){
+setLang(getCookie("lang"));
+}
 
-cambiarIdioma(idiomaGuardado);
-
-actualizarEstado();
+refreshCookies();
 
 };
 
