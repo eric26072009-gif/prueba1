@@ -65,6 +65,54 @@ border-radius:15px;
 
 <style>
 
+.rainbow .card{
+
+background: linear-gradient(
+45deg,
+#ff0000,
+#ff7300,
+#ffff00,
+#00ff00,
+#00ffff,
+#0000ff,
+#8a2be2,
+#ff00ff
+);
+
+background-size: 400% 400%;
+
+animation: rainbowCard 8s ease infinite;
+
+color: white;
+
+box-shadow:
+0 0 20px #00ffff,
+0 0 40px #ff00ff,
+0 0 60px #ffff00;
+
+backdrop-filter: blur(10px);
+
+}
+
+@keyframes rainbowCard{
+
+0%{
+background-position:0% 50%;
+transform:translateY(0px);
+}
+
+50%{
+background-position:100% 50%;
+transform:translateY(-5px);
+}
+
+100%{
+background-position:0% 50%;
+transform:translateY(0px);
+}
+
+}
+  
 .rainbow h1,
 .rainbow h2{
 
