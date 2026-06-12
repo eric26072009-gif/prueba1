@@ -63,6 +63,28 @@ border-radius:15px;
 }
 </style>
 
+<style>
+
+.rainbow{
+
+animation: rainbowBackground 10s linear infinite;
+
+}
+
+@keyframes rainbowBackground{
+
+0% {background:#ff0000;}
+16% {background:#ff8000;}
+33% {background:#ffff00;}
+50% {background:#00ff00;}
+66% {background:#00ffff;}
+83% {background:#0000ff;}
+100% {background:#ff00ff;}
+
+}
+
+</style>
+  
 </head>
 <body>
 
@@ -116,6 +138,10 @@ Todo sobre las cookies tecnológicas
 ☀️ Claro
 </button>
 
+<button onclick="toggleRainbow()">
+🌈 Fondo multicolor
+</button>
+  
 </div>
 
 <div class="card">
@@ -348,5 +374,39 @@ updateCookies();
 
 </script>
 
+<script>
+
+function toggleRainbow(){
+
+document.body.classList.toggle("rainbow");
+
+if(getCookie("consent")=="yes"){
+
+if(document.body.classList.contains("rainbow")){
+
+setCookie("rainbow","on");
+
+}else{
+
+setCookie("rainbow","off");
+
+}
+
+}
+
+}
+
+window.addEventListener("load",function(){
+
+if(getCookie("rainbow")=="on"){
+
+document.body.classList.add("rainbow");
+
+}
+
+});
+
+</script>
+  
 </body>
 </html>
