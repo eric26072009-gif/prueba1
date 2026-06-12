@@ -2,515 +2,172 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CookieTech</title>
 
 <style>
-body{
-font-family:Arial,sans-serif;
-margin:0;
-background:#f4f4f4;
-color:#333;
-transition:.3s;
-}
-
-.dark{
-background:#121212;
-color:white;
-}
-
-header{
-background:#555D50;
-color:white;
-text-align:center;
-padding:30px;
-}
-
-.card{
-background:white;
-margin:20px;
-padding:20px;
-border-radius:12px;
-box-shadow:0 0 10px rgba(0,0,0,.15);
-}
-
-.dark .card{
-background:#222;
-}
-
-button{
-padding:10px;
-margin:5px;
-cursor:pointer;
-border:none;
-border-radius:8px;
-}
-
-#cookieBanner{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:#222;
-color:white;
-padding:15px;
-text-align:center;
-}
-
-img{
-max-width:250px;
-border-radius:15px;
-}
-</style>
-
-<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f4f4;color:#333;transition:.3s}
+.dark{background:#121212;color:#fff}
+header{background:#555D50;color:#fff;text-align:center;padding:30px}
+.card{background:#fff;margin:20px;padding:20px;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,.15)}
+.dark .card{background:#222}
+button{padding:10px;margin:5px;cursor:pointer;border:none;border-radius:8px}
+#cookieBanner{position:fixed;bottom:0;left:0;width:100%;background:#222;color:#fff;padding:15px;text-align:center}
+img{max-width:250px;border-radius:15px}
 
 .rainbow .card{
+background:linear-gradient(45deg,#ff0000,#ff7300,#ffff00,#00ff00,#00ffff,#0000ff,#8a2be2,#ff00ff);
+background-size:400% 400%;
+animation:rainbowCard 8s ease infinite;
+color:#fff;
+box-shadow:0 0 20px #00ffff,0 0 40px #ff00ff,0 0 60px #ffff00;
+backdrop-filter:blur(10px)
+}
 
-background: linear-gradient(
-45deg,
-#ff0000,
-#ff7300,
-#ffff00,
-#00ff00,
-#00ffff,
-#0000ff,
-#8a2be2,
-#ff00ff
-);
+.rainbow h1,.rainbow h2{animation:glowText 2s infinite alternate}
 
-background-size: 400% 400%;
-
-animation: rainbowCard 8s ease infinite;
-
-color: white;
-
-box-shadow:
-0 0 20px #00ffff,
-0 0 40px #ff00ff,
-0 0 60px #ffff00;
-
-backdrop-filter: blur(10px);
-
+.rainbow header{
+background:linear-gradient(-45deg,#ff0000,#ff7300,#ffff00,#00ff00,#00ffff,#0000ff,#8a2be2,#ff00ff);
+background-size:800% 800%;
+animation:rainbowMove 8s linear infinite
 }
 
 @keyframes rainbowCard{
-
-0%{
-background-position:0% 50%;
-transform:translateY(0px);
-}
-
-50%{
-background-position:100% 50%;
-transform:translateY(-5px);
-}
-
-100%{
-background-position:0% 50%;
-transform:translateY(0px);
-}
-
-}
-  
-.rainbow h1,
-.rainbow h2{
-
-animation: glowText 2s infinite alternate;
-
+0%{background-position:0% 50%;transform:translateY(0)}
+50%{background-position:100% 50%;transform:translateY(-5px)}
+100%{background-position:0% 50%;transform:translateY(0)}
 }
 
 @keyframes glowText{
-
-from{
-text-shadow:
-0 0 10px cyan,
-0 0 20px cyan;
-}
-
-to{
-text-shadow:
-0 0 20px magenta,
-0 0 40px magenta,
-0 0 60px yellow;
-}
-
-}
-
-.rainbow header{
-background: linear-gradient(
--45deg,
-#ff0000,
-#ff7300,
-#ffff00,
-#00ff00,
-#00ffff,
-#0000ff,
-#8a2be2,
-#ff00ff
-);
-
-background-size: 800% 800%;
-
-animation: rainbowMove 8s linear infinite;
+from{text-shadow:0 0 10px cyan,0 0 20px cyan}
+to{text-shadow:0 0 20px magenta,0 0 40px magenta,0 0 60px yellow}
 }
 
 @keyframes rainbowMove{
-
-0%{
-background-position:0% 50%;
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
 }
-
-50%{
-background-position:100% 50%;
-}
-
-100%{
-background-position:0% 50%;
-}
-
-}
-  
 </style>
-  
 </head>
 <body>
 
 <header>
-
 <h1 id="title">🍪 CookieTech</h1>
-
-<p id="subtitle">
-Todo sobre las cookies tecnológicas
-</p>
-
-<img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500">
-
+<p id="subtitle">Todo sobre las cookies tecnológicas</p>
+<img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500" alt="Cookies">
 </header>
 
 <div class="card">
-
-<h2 id="langTitle">
-🌍 Idioma
-</h2>
-
-<button onclick="setLang('es')">
-🇪🇸 Español
-</button>
-
-<button onclick="setLang('ca')">
-🇦🇩 Català
-</button>
-
-<button onclick="setLang('en')">
-🇬🇧 English
-</button>
-
-<button onclick="setLang('ru')">
-🇷🇺 Русский
-</button>
-
+<h2 id="langTitle">🌍 Idioma</h2>
+<button onclick="setLang('es')">🇪🇸 Español</button>
+<button onclick="setLang('ca')">🇦🇩 Català</button>
+<button onclick="setLang('en')">🇬🇧 English</button>
+<button onclick="setLang('ru')">🇷🇺 Русский</button>
 </div>
 
 <div class="card">
-
-<h2 id="themeTitle">
-🌙 Apariencia
-</h2>
-
-<button onclick="darkMode()">
-🌙 Oscuro
-</button>
-
-<button onclick="lightMode()">
-☀️ Claro
-</button>
-
-<button onclick="toggleRainbow()">
-🌈 Fondo multicolor
-</button>
-  
+<h2 id="themeTitle">🌙 Apariencia</h2>
+<button onclick="darkMode()">🌙 Oscuro</button>
+<button onclick="lightMode()">☀️ Claro</button>
+<button onclick="toggleRainbow()">🌈 Fondo multicolor</button>
 </div>
 
 <div class="card">
-
-<h2 id="cookiesTitle">
-🍪 ¿Qué son las cookies?
-</h2>
-
-<p id="cookiesText">
-Las cookies son pequeños archivos que guardan información en tu navegador.
-</p>
-
+<h2 id="cookiesTitle">🍪 ¿Qué son las cookies?</h2>
+<p id="cookiesText">Las cookies son pequeños archivos que guardan información en tu navegador.</p>
 </div>
 
 <div class="card">
-
-<h2>
-📋 Cookies actuales
-</h2>
-
-<p id="cookieList">
-</p>
-
+<h2 id="currentCookiesTitle">📋 Cookies actuales</h2>
+<p id="cookieList"></p>
 </div>
 
 <div id="cookieBanner">
-
 🍪 Esta web utiliza cookies.
-
-<button onclick="acceptCookies()">
-Aceptar
-</button>
-
-<button onclick="rejectCookies()">
-Rechazar
-</button>
-
+<button onclick="acceptCookies()">Aceptar</button>
+<button onclick="rejectCookies()">Rechazar</button>
 </div>
 
 <script>
-
-const txt = {
-
-es:{
-title:"🍪 CookieTech",
-subtitle:"Todo sobre las cookies tecnológicas",
-lang:"🌍 Idioma",
-theme:"🌙 Apariencia",
-cookies:"🍪 ¿Qué son las cookies?",
-cookieText:"Las cookies son pequeños archivos que guardan información en tu navegador."
-},
-
-ca:{
-title:"🍪 CookieTech",
-subtitle:"Tot sobre les cookies tecnològiques",
-lang:"🌍 Idioma",
-theme:"🌙 Aparença",
-cookies:"🍪 Què són les cookies?",
-cookieText:"Les cookies són petits fitxers que guarden informació al navegador."
-},
-
-en:{
-title:"🍪 CookieTech",
-subtitle:"Everything about web cookies",
-lang:"🌍 Language",
-theme:"🌙 Appearance",
-cookies:"🍪 What are cookies?",
-cookieText:"Cookies are small files that store information in your browser."
-},
-
-ru:{
-title:"🍪 CookieTech",
-subtitle:"Всё о веб-куки",
-lang:"🌍 Язык",
-theme:"🌙 Внешний вид",
-cookies:"🍪 Что такое cookie?",
-cookieText:"Cookie — это небольшие файлы, которые сохраняют информацию в браузере."
-}
-
+const txt={
+es:{title:"🍪 CookieTech",subtitle:"Todo sobre las cookies tecnológicas",lang:"🌍 Idioma",theme:"🌙 Apariencia",cookies:"🍪 ¿Qué son las cookies?",cookieText:"Las cookies son pequeños archivos que guardan información en tu navegador.",currentCookies:"📋 Cookies actuales",noCookies:"No hay cookies"},
+ca:{title:"🍪 CookieTech",subtitle:"Tot sobre les cookies tecnològiques",lang:"🌍 Idioma",theme:"🌙 Aparença",cookies:"🍪 Què són les cookies?",cookieText:"Les cookies són petits fitxers que guarden informació al navegador.",currentCookies:"📋 Cookies actuals",noCookies:"No hi ha cookies"},
+en:{title:"🍪 CookieTech",subtitle:"Everything about web cookies",lang:"🌍 Language",theme:"🌙 Appearance",cookies:"🍪 What are cookies?",cookieText:"Cookies are small files that store information in your browser.",currentCookies:"📋 Current cookies",noCookies:"No cookies"},
+ru:{title:"🍪 CookieTech",subtitle:"Всё о веб-куки",lang:"🌍 Язык",theme:"🌙 Внешний вид",cookies:"🍪 Что такое cookie?",cookieText:"Cookie — это небольшие файлы, которые сохраняют информацию в браузере.",currentCookies:"📋 Текущие cookie",noCookies:"Нет cookie"}
 };
 
-function setCookie(name,value){
+const $=id=>document.getElementById(id);
+let currentLang="es";
 
-document.cookie =
-name + "=" + value +
-";max-age=31536000;path=/";
-
-}
-
-function getCookie(name){
-
-let match =
-document.cookie.match(
-new RegExp('(^| )'+name+'=([^;]+)')
-);
-
-return match ? match[2] : null;
-
-}
-
-function deleteCookie(name){
-
-document.cookie =
-name +
-"=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
-
-}
+function setCookie(name,value){document.cookie=`${name}=${value};max-age=31536000;path=/`;}
+function getCookie(name){return document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`))?.[2]||null;}
+function deleteCookie(name){document.cookie=`${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;}
 
 function updateCookies(){
-
-document.getElementById("cookieList")
-.textContent =
-document.cookie || "No hay cookies";
-
+$("cookieList").textContent=document.cookie||txt[currentLang].noCookies;
 }
 
 function acceptCookies(){
-
 setCookie("consent","yes");
-
-document.getElementById("cookieBanner")
-.style.display="none";
-
+$("cookieBanner").style.display="none";
 updateCookies();
-
 }
 
 function rejectCookies(){
-
 setCookie("consent","no");
-
-deleteCookie("theme");
-deleteCookie("lang");
-
-document.body.classList.remove("dark");
-
-document.getElementById("cookieBanner")
-.style.display="none";
-
+["theme","lang","rainbow"].forEach(deleteCookie);
+document.body.classList.remove("dark","rainbow");
+$("cookieBanner").style.display="none";
 updateCookies();
-
 }
 
 function darkMode(){
-
 document.body.classList.add("dark");
-
-if(getCookie("consent")=="yes"){
-
-setCookie("theme","dark");
-
-}
-
+if(getCookie("consent")==="yes") setCookie("theme","dark");
 updateCookies();
-
 }
 
 function lightMode(){
-
 document.body.classList.remove("dark");
-
-if(getCookie("consent")=="yes"){
-
-setCookie("theme","light");
-
+if(getCookie("consent")==="yes") setCookie("theme","light");
+updateCookies();
 }
 
+function toggleRainbow(){
+document.body.classList.toggle("rainbow");
+if(getCookie("consent")==="yes"){
+setCookie("rainbow",document.body.classList.contains("rainbow")?"on":"off");
+}
 updateCookies();
-
 }
 
 function setLang(lang){
+const t=txt[lang];
+currentLang=lang;
 
-document.getElementById("title")
-.textContent=txt[lang].title;
+$("title").textContent=t.title;
+$("subtitle").textContent=t.subtitle;
+$("langTitle").textContent=t.lang;
+$("themeTitle").textContent=t.theme;
+$("cookiesTitle").textContent=t.cookies;
+$("cookiesText").textContent=t.cookieText;
+$("currentCookiesTitle").textContent=t.currentCookies;
 
-document.getElementById("subtitle")
-.textContent=txt[lang].subtitle;
-
-document.getElementById("langTitle")
-.textContent=txt[lang].lang;
-
-document.getElementById("themeTitle")
-.textContent=txt[lang].theme;
-
-document.getElementById("cookiesTitle")
-.textContent=txt[lang].cookies;
-
-document.getElementById("cookiesText")
-.textContent=txt[lang].cookieText;
-
-if(getCookie("consent")=="yes"){
-
-setCookie("lang",lang);
-
-}
+if(getCookie("consent")==="yes") setCookie("lang",lang);
 
 updateCookies();
-
 }
 
-window.onload=function(){
+window.addEventListener("load",()=>{
+if(getCookie("consent")) $("cookieBanner").style.display="none";
+if(getCookie("theme")==="dark") document.body.classList.add("dark");
+if(getCookie("rainbow")==="on") document.body.classList.add("rainbow");
 
-if(getCookie("consent")){
-
-document.getElementById("cookieBanner")
-.style.display="none";
-
-}
-
-if(getCookie("theme")=="dark"){
-
-document.body.classList.add("dark");
-
-}
-
-if(getCookie("lang")){
-
-setLang(getCookie("lang"));
-
-}else{
-
-setLang("es");
-
-}
-
+setLang(getCookie("lang")||"es");
 updateCookies();
-
-};
-
-</script>
-
-<script>
-
-function toggleRainbow(){
-
-document.body.classList.toggle("rainbow");
-
-if(getCookie("consent")=="yes"){
-
-if(document.body.classList.contains("rainbow")){
-
-setCookie("rainbow","on");
-
-}else{
-
-setCookie("rainbow","off");
-
-}
-
-}
-
-}
-
-window.addEventListener("load",function(){
-
-if(getCookie("rainbow")=="on"){
-
-document.body.classList.add("rainbow");
-
-function toggleRainbow(){
-
-document.body.classList.toggle("rainbow");
-
-if(getCookie("consent")=="yes"){
-
-if(document.body.classList.contains("rainbow")){
-setCookie("rainbow","on");
-}else{
-setCookie("rainbow","off");
-}
-
-}
-
-}
-
-}
-
 });
-
 </script>
-  
+
 </body>
 </html>
