@@ -456,6 +456,22 @@ if(getCookie("rainbow")=="on"){
 
 document.body.classList.add("rainbow");
 
+function toggleRainbow(){
+
+document.body.classList.toggle("rainbow");
+
+if(getCookie("consent")=="yes"){
+
+if(document.body.classList.contains("rainbow")){
+setCookie("rainbow","on");
+}else{
+setCookie("rainbow","off");
+}
+
+}
+
+}
+
 }
 
 });
