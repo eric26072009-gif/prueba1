@@ -208,6 +208,35 @@ if(getCookie("rainbow")==="on") document.body.classList.add("rainbow");
 setLang(getCookie("lang")||"es");
 updateCookies();
 });
+
+const clickAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function playClickSound(){
+  const osc = clickAudioCtx.createOscillator();
+  const gain = clickAudioCtx.createGain();
+
+  osc.type = "triangle";
+  osc.frequency.setValueAtTime(900, clickAudioCtx.currentTime);
+
+  gain.gain.setValueAtTime(0.03, clickAudioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(
+    0.0001,
+    clickAudioCtx.currentTime + 0.05
+  );
+
+  osc.connect(gain);
+  gain.connect(clickAudioCtx.destination);
+
+  osc.start();
+  osc.stop(clickAudioCtx.currentTime + 0.05);
+}
+
+document.addEventListener("click",(e)=>{
+  if(e.target.tagName==="BUTTON"){
+    playClickSound();
+  }
+});
+
 </script>
 
 </body>
