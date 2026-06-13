@@ -237,6 +237,21 @@ document.addEventListener("click",(e)=>{
   }
 });
 
+if(secretWord === "cookie"){
+alert("🍪 COOKIE MONSTER ACTIVATED!");
+document.body.classList.add("rainbow");
+let spins = 0;
+const interval = setInterval(()=>{
+spins++;
+document.body.style.transform =
+`rotate(${Math.sin(spins/2)*2}deg)`;
+if(spins > 30){
+clearInterval(interval);
+document.body.style.transform = "none";}
+},50);
+secretWord = "";
+}
+  
 </script>
 
 </body>
