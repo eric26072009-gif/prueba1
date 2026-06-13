@@ -156,8 +156,10 @@ updateCookies();
 }
 
 function rejectCookies(){
-setCookie("consent","no");
-["theme","lang","rainbow"].forEach(deleteCookie);
+deleteCookie("consent");
+deleteCookie("theme");
+deleteCookie("lang");
+deleteCookie("rainbow");
 document.body.classList.remove("dark","rainbow");
 $("cookieBanner").style.display="none";
 updateCookies();
@@ -201,12 +203,7 @@ updateCookies();
 }
 
 window.addEventListener("load",()=>{
-if(getCookie("consent")) $("cookieBanner").style.display="none";
-if(getCookie("theme")==="dark") document.body.classList.add("dark");
-if(getCookie("rainbow")==="on") document.body.classList.add("rainbow");
-
-setLang(getCookie("lang")||"es");
-updateCookies();
+if(getCookie("consent")==="yes"){$("cookieBanner").style.display="none";}
 });
 
 const clickAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
