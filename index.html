@@ -237,26 +237,6 @@ document.addEventListener("click",(e)=>{
   }
 });
 
-let secretWord = "";
-
-document.addEventListener("keydown", function(e){
-
-secretWord += e.key.toLowerCase();
-
-if(secretWord.length > 20){
-secretWord = secretWord.slice(-20);
-}
-
-let secretWord = "";
-
-document.addEventListener("keydown", function(e){
-
-secretWord += e.key.toLowerCase();
-
-if(secretWord.length > 20){
-secretWord = secretWord.slice(-20);
-}
-
 if(secretWord.includes("cookie")){
 alert("🍪 COOKIE MONSTER ACTIVATED!");
 const hadRainbow =
