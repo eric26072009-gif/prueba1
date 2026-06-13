@@ -237,26 +237,52 @@ document.addEventListener("click",(e)=>{
   }
 });
 
+let secretWord = "";
+
+document.addEventListener("keydown", function(e){
+
+secretWord += e.key.toLowerCase();
+
+if(secretWord.length > 20){
+secretWord = secretWord.slice(-20);
+}
+
 if(secretWord.includes("cookie")){
+
 alert("🍪 COOKIE MONSTER ACTIVATED!");
+
 const hadRainbow =
 document.body.classList.contains("rainbow");
+
 document.body.classList.add("rainbow");
+
 let angle = 0;
+
 const dance = setInterval(function(){
+
 angle += 0.4;
+
 document.body.style.transform =
 `rotate(${Math.sin(angle)*3}deg)`;
+
 },50);
+
 setTimeout(function(){
+
 clearInterval(dance);
+
 document.body.style.transform = "none";
+
 if(!hadRainbow){
 document.body.classList.remove("rainbow");
 }
+
 },3000);
+
 secretWord = "";
+
 }
+
 });
   
 </script>
