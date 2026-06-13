@@ -203,7 +203,7 @@ updateCookies();
 }
 
 window.addEventListener("load",()=>{
-if(getCookie("consent")==="yes"){$("cookieBanner").style.display="none";
+if(getCookie("consent")==="yes"){$("cookieBanner").style.display="none";}
 if(getCookie("theme")==="dark") document.body.classList.add("dark");
 if(getCookie("rainbow")==="on") document.body.classList.add("rainbow");
 });
