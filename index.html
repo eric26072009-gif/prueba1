@@ -180,15 +180,13 @@ updateCookies();
 function toggleRainbow(){
 document.body.classList.toggle("rainbow");
 if(getCookie("consent")==="yes"){
-setCookie("rainbow",document.body.classList.contains("rainbow")?"on":"off");
-}
+setCookie("rainbow",document.body.classList.contains("rainbow")?"on":"off");}
 updateCookies();
 }
 
 function setLang(lang){
 const t=txt[lang];
 currentLang=lang;
-
 $("title").textContent=t.title;
 $("subtitle").textContent=t.subtitle;
 $("langTitle").textContent=t.lang;
@@ -196,16 +194,19 @@ $("themeTitle").textContent=t.theme;
 $("cookiesTitle").textContent=t.cookies;
 $("cookiesText").textContent=t.cookieText;
 $("currentCookiesTitle").textContent=t.currentCookies;
-
 if(getCookie("consent")==="yes") setCookie("lang",lang);
-
 updateCookies();
 }
 
 window.addEventListener("load",()=>{
-if(getCookie("consent")==="yes"){$("cookieBanner").style.display="none";}
-if(getCookie("theme")==="dark") document.body.classList.add("dark");
-if(getCookie("rainbow")==="on") document.body.classList.add("rainbow");
+if(getCookie("consent")==="yes"){
+$("cookieBanner").style.display="none";}
+if(getCookie("theme")==="dark"){
+document.body.classList.add("dark");}
+if(getCookie("rainbow")==="on"){
+document.body.classList.add("rainbow");}
+setLang(getCookie("lang") || "es");
+updateCookies();
 });
 
 const clickAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
