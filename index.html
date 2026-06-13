@@ -249,6 +249,8 @@ secretWord = secretWord.slice(-20);
 
 if(secretWord.includes("cookie")){
 alert("🍪 COOKIE MONSTER ACTIVATED!");
+const hadRainbow =
+document.body.classList.contains("rainbow");
 document.body.classList.add("rainbow");
 let angle = 0;
 const dance = setInterval(function(){
@@ -259,9 +261,12 @@ document.body.style.transform =
 setTimeout(function(){
 clearInterval(dance);
 document.body.style.transform = "none";
+if(!hadRainbow){
+document.body.classList.remove("rainbow");
+}
 },3000);
-secretWord = "";}
-});
+secretWord = "";
+}
   
 </script>
 
