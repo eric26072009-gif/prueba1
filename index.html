@@ -237,20 +237,31 @@ document.addEventListener("click",(e)=>{
   }
 });
 
-if(secretWord === "cookie"){
+let secretWord = "";
+
+document.addEventListener("keydown", function(e){
+
+secretWord += e.key.toLowerCase();
+
+if(secretWord.length > 20){
+secretWord = secretWord.slice(-20);
+}
+
+if(secretWord.includes("cookie")){
 alert("🍪 COOKIE MONSTER ACTIVATED!");
 document.body.classList.add("rainbow");
-let spins = 0;
-const interval = setInterval(()=>{
-spins++;
+let angle = 0;
+const dance = setInterval(function(){
+angle += 0.4;
 document.body.style.transform =
-`rotate(${Math.sin(spins/2)*2}deg)`;
-if(spins > 30){
-clearInterval(interval);
-document.body.style.transform = "none";}
+`rotate(${Math.sin(angle)*3}deg)`;
 },50);
-secretWord = "";
-}
+setTimeout(function(){
+clearInterval(dance);
+document.body.style.transform = "none";
+},3000);
+secretWord = "";}
+});
   
 </script>
 
