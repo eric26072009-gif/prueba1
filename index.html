@@ -7,13 +7,43 @@
 
 <style>
 body{font-family:Arial,sans-serif;margin:0;background:#f4f4f4;color:#333;transition:.3s}
+header{background:#fff;color:#333;text-align:center;padding:30px;transition:.3s}
 .dark{background:#121212;color:#fff}
-header{background:#555D50;color:#fff;text-align:center;padding:30px}
-.card{background:#fff;margin:20px;padding:20px;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,.15)}
+.dark header{background:#000;color:#fff}
+
+.card{
+background:#fff;
+margin:20px;
+padding:20px;
+border-radius:12px;
+box-shadow:0 0 10px rgba(0,0,0,.15)
+}
+
 .dark .card{background:#222}
-button{padding:10px;margin:5px;cursor:pointer;border:none;border-radius:8px}
-#cookieBanner{position:fixed;bottom:0;left:0;width:100%;background:#222;color:#fff;padding:15px;text-align:center}
-img{max-width:250px;border-radius:15px}
+
+button{
+padding:10px;
+margin:5px;
+cursor:pointer;
+border:none;
+border-radius:8px
+}
+
+#cookieBanner{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#222;
+color:#fff;
+padding:15px;
+text-align:center
+}
+
+img{
+max-width:250px;
+border-radius:15px
+}
 
 .rainbow .card{
 background:linear-gradient(45deg,#ff0000,#ff7300,#ffff00,#00ff00,#00ffff,#0000ff,#8a2be2,#ff00ff);
@@ -24,12 +54,15 @@ box-shadow:0 0 20px #00ffff,0 0 40px #ff00ff,0 0 60px #ffff00;
 backdrop-filter:blur(10px)
 }
 
-.rainbow h1,.rainbow h2{animation:glowText 2s infinite alternate}
+.rainbow h1,.rainbow h2{
+animation:glowText 2s infinite alternate
+}
 
 .rainbow header{
 background:linear-gradient(-45deg,#ff0000,#ff7300,#ffff00,#00ff00,#00ffff,#0000ff,#8a2be2,#ff00ff);
 background-size:800% 800%;
-animation:rainbowMove 8s linear infinite
+animation:rainbowMove 8s linear infinite;
+color:#fff
 }
 
 @keyframes rainbowCard{
@@ -100,9 +133,17 @@ ru:{title:"🍪 CookieTech",subtitle:"Всё о веб-куки",lang:"🌍 Яз
 const $=id=>document.getElementById(id);
 let currentLang="es";
 
-function setCookie(name,value){document.cookie=`${name}=${value};max-age=31536000;path=/`;}
-function getCookie(name){return document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`))?.[2]||null;}
-function deleteCookie(name){document.cookie=`${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;}
+function setCookie(name,value){
+document.cookie=`${name}=${value};max-age=31536000;path=/`;
+}
+
+function getCookie(name){
+return document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`))?.[2]||null;
+}
+
+function deleteCookie(name){
+document.cookie=`${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
+}
 
 function updateCookies(){
 $("cookieList").textContent=document.cookie||txt[currentLang].noCookies;
