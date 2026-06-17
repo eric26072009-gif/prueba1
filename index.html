@@ -153,6 +153,7 @@ function acceptCookies(){
 setCookie("consent","yes");
 $("cookieBanner").style.display="none";
 updateCookies();
+sendTracking();
 }
 
 function rejectCookies(){
@@ -217,6 +218,27 @@ if(getCookie("consent")==="yes") setCookie("lang",lang);
 updateCookies();
 }
 
+async function sendTracking(){
+const data = {
+date:new Date().toLocaleString(),
+language:getCookie("lang") || "es",
+theme:
+document.body.classList.contains("dark")
+? "dark"
+: "light",
+visits:getCookie("visitCount") || 1,
+consent:getCookie("consent") || "unknown"
+};
+
+await fetch(
+"TU_URL_DE_APPS_SCRIPT",
+{
+method:"POST",
+body:JSON.stringify(data)
+}
+);
+}
+  
 window.addEventListener("load",()=>{
 if(getCookie("consent")==="yes"){
 $("cookieBanner").style.display="none";
