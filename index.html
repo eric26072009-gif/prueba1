@@ -151,19 +151,31 @@ $("cookieList").textContent=document.cookie||txt[currentLang].noCookies;
 
 function acceptCookies(){
 setCookie("consent","yes");
+createTrackingCookies();
 $("cookieBanner").style.display="none";
 updateCookies();
-sendTracking();
+sendTracking("yes");
 }
 
 function rejectCookies(){
+
+sendTracking("no");
+
 deleteCookie("consent");
 deleteCookie("theme");
 deleteCookie("lang");
 deleteCookie("rainbow");
+deleteCookie("visitCount");
+deleteCookie("lastVisit");
+deleteCookie("preferredSection");
+deleteCookie("sessionSource");
+
 document.body.classList.remove("dark","rainbow");
+
 $("cookieBanner").style.display="none";
+
 updateCookies();
+
 }
 
 function darkMode(){
@@ -218,40 +230,54 @@ if(getCookie("consent")==="yes") setCookie("lang",lang);
 updateCookies();
 }
 
-async function sendTracking(){
-const data = {
+async function sendTracking(consentValue){
+
+const data={
 date:new Date().toLocaleString(),
 language:getCookie("lang") || "es",
-theme:
-document.body.classList.contains("dark")
-? "dark"
-: "light",
-visits:getCookie("visitCount") || 1,
-consent:getCookie("consent") || "unknown"
+theme:document.body.classList.contains("dark")?"dark":"light",
+visits:getCookie("visitCount") || 0,
+consent:consentValue
 };
 
+try{
 await fetch(
-"TU_URL_DE_APPS_SCRIPT",
+"https://script.google.com/macros/s/AKfycbyOLSSQe7PQQ25rC-uXl3-mgWadjGP_ZO0_dI_-6d5OMDhM09FcIdfwXKlVSIDq6TbV/exec",
 {
 method:"POST",
 body:JSON.stringify(data)
 }
 );
+}catch(error){
+console.log("Error enviando tracking:",error);
+}
+
 }
   
 window.addEventListener("load",()=>{
+
 if(getCookie("consent")==="yes"){
+
 $("cookieBanner").style.display="none";
+
 createTrackingCookies();
+
+sendTracking("yes");
+
 }
+
 if(getCookie("theme")==="dark"){
 document.body.classList.add("dark");
 }
+
 if(getCookie("rainbow")==="on"){
 document.body.classList.add("rainbow");
 }
+
 setLang(getCookie("lang") || "es");
+
 updateCookies();
+
 });
 
 const clickAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
