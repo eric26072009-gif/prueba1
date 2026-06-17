@@ -215,6 +215,32 @@ document.referrer || "direct"
 );
 updateCookies();
 }
+
+function getOS(){
+const ua = navigator.userAgent;
+if(ua.includes("Android")) return "Android";
+if(ua.includes("iPhone")) return "iOS";
+if(ua.includes("iPad")) return "iPadOS";
+if(ua.includes("Windows")) return "Windows";
+if(ua.includes("Mac")) return "macOS";
+if(ua.includes("CrOS")) return "ChromeOS";
+if(ua.includes("Linux")) return "Linux";
+return "Desconocido";
+}
+function getBrand(){
+const ua = navigator.userAgent;
+if(ua.includes("SM-")) return "Samsung";
+if(ua.includes("Redmi")) return "Xiaomi Redmi";
+if(ua.includes("Mi ")) return "Xiaomi";
+if(ua.includes("POCO")) return "POCO";
+if(ua.includes("HUAWEI")) return "Huawei";
+if(ua.includes("HONOR")) return "Honor";
+if(ua.includes("OnePlus")) return "OnePlus";
+if(ua.includes("OPPO")) return "OPPO";
+if(ua.includes("vivo")) return "Vivo";
+if(ua.includes("iPhone")) return "Apple";
+return "Desconocida";
+}
   
 function setLang(lang){
 const t=txt[lang];
@@ -238,6 +264,8 @@ language:getCookie("lang") || "es",
 theme:document.body.classList.contains("dark")?"dark":"light",
 visits:getCookie("visitCount") || 0,
 consent:consentValue
+os:getOS(),
+brand:getBrand(),
 };
 
 try{
