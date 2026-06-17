@@ -184,6 +184,25 @@ setCookie("rainbow",document.body.classList.contains("rainbow")?"on":"off");}
 updateCookies();
 }
 
+function createTrackingCookies(){
+setCookie("visitCount",
+(Number(getCookie("visitCount")) || 0) + 1
+);
+setCookie(
+"lastVisit",
+new Date().toLocaleString()
+);
+setCookie(
+"preferredSection",
+"cookies-info"
+);
+setCookie(
+"sessionSource",
+document.referrer || "direct"
+);
+updateCookies();
+}
+  
 function setLang(lang){
 const t=txt[lang];
 currentLang=lang;
@@ -200,11 +219,15 @@ updateCookies();
 
 window.addEventListener("load",()=>{
 if(getCookie("consent")==="yes"){
-$("cookieBanner").style.display="none";}
+$("cookieBanner").style.display="none";
+createTrackingCookies();
+}
 if(getCookie("theme")==="dark"){
-document.body.classList.add("dark");}
+document.body.classList.add("dark");
+}
 if(getCookie("rainbow")==="on"){
-document.body.classList.add("rainbow");}
+document.body.classList.add("rainbow");
+}
 setLang(getCookie("lang") || "es");
 updateCookies();
 });
